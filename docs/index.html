@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>skilltrace · Agent Instruction Linter &amp; Token Budget Auditor</title>
+  <meta name="description" content="Audit CLAUDE.md, AGENTS.md, GEMINI.md, Cursor rules, and SKILL.md for conflicting directives, secrets, unsafe commands, and context bloat." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg:#120e0a; --surface:#1b1510; --surface2:#261e16; --border:#3b2f23; --text:#f5efe6; --muted:#b6a897; --accent:#f2b84b; --accent2:#d9822b; --on-accent:#1a1106; --ok:#34d399; --bad:#f87171; }
+    [data-theme="light"] { --bg:#faf4e6; --surface:#fffdf8; --surface2:#f2e9d8; --border:#dfd2bc; --text:#1c1610; --muted:#5e5042; --accent:#b8470a; --accent2:#92400e; --on-accent:#fffdf8; --ok:#059669; --bad:#dc2626; }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:"Vazirmatn",system-ui,sans-serif;line-height:1.65}
+    code,pre,textarea{font-family:"JetBrains Mono","Vazirmatn",monospace}
+    .wrap{max-width:1040px;margin:0 auto;padding:28px 20px 64px}
+    header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem}
+    .badge{font-size:.78rem;padding:3px 10px;border-radius:999px;background:var(--surface2);border:1px solid var(--border);color:var(--accent)}
+    .controls{display:flex;gap:8px;flex-wrap:wrap}
+    button,.btn{cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text);padding:7px 14px;border-radius:10px;font-family:inherit;font-size:.88rem;text-decoration:none}
+    button:hover,.btn:hover{border-color:var(--accent)}
+    .btn-primary{background:var(--accent);color:var(--on-accent);border-color:transparent;font-weight:700}
+    .hero,.lab{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:24px;margin-bottom:20px}
+    h1{margin:0 0 10px;font-size:clamp(1.7rem,3vw,2.35rem);line-height:1.2}
+    .lead{color:var(--muted);margin:0 0 16px;max-width:72ch}
+    pre{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px;overflow-x:auto;font-size:.82rem;margin:0}
+    textarea{width:100%;min-height:125px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:12px;padding:12px;font-size:.8rem}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+    @media(max-width:760px){.split{grid-template-columns:1fr}}
+    footer{margin-top:36px;color:var(--muted);font-size:.86rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+    footer a{color:var(--accent)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand"><span>🧭 skilltrace</span><span class="badge">v1.0.0 · MIT</span></div>
+      <div class="controls">
+        <button id="langBtn" type="button">فارسی / EN</button>
+        <button id="themeBtn" type="button">☀️ / 🌙</button>
+        <a class="btn" href="https://github.com/mrzroot/skilltrace" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://mrzroot.github.io/">mrzroot</a>
+      </div>
+    </header>
+    <section class="hero">
+      <h1 data-i18n="title">Agent Instruction Linter &amp; Token Budget Auditor</h1>
+      <p class="lead" data-i18n="lead">Scan CLAUDE.md, AGENTS.md, GEMINI.md, Cursor rules, and SKILL.md together. Catch cross-file contradictions, leaked tokens, unsafe shell bypasses, and context bloat before commit.</p>
+      <pre><code>skilltrace scan . --max-tokens 6000 --strict --json
+skilltrace budget .</code></pre>
+    </section>
+    <section class="lab">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+        <h2 style="margin:0" data-i18n="labTitle">Browser Instruction Conflict &amp; Budget Lab</h2>
+        <button class="btn-primary" id="scanBtn" type="button" data-i18n="scan">Trace Rules</button>
+      </div>
+      <div class="split">
+        <div><label style="font-size:.8rem;color:var(--muted)">CLAUDE.md</label><textarea id="claudeIn">Always use npm for installs.
+Always run tests before commit.</textarea></div>
+        <div><label style="font-size:.8rem;color:var(--muted)">AGENTS.md</label><textarea id="agentsIn">Always use pnpm instead.
+Pass --no-verify if in a hurry.</textarea></div>
+      </div>
+      <pre id="out"></pre>
+    </section>
+    <footer>
+      <span>skilltrace · Mohammadreza Zare (<a href="https://github.com/mrzroot">mrzroot</a>)</span>
+      <span data-i18n="foot">Zero runtime dependencies · Node.js 18+ ESM</span>
+    </footer>
+  </div>
+  <script>
+    const I18N = {
+      en: { title:"Agent Instruction Linter & Token Budget Auditor", lead:"Scan CLAUDE.md, AGENTS.md, GEMINI.md, Cursor rules, and SKILL.md together. Catch cross-file contradictions, leaked tokens, unsafe shell bypasses, and context bloat before commit.", labTitle:"Browser Instruction Conflict & Budget Lab", scan:"Trace Rules", foot:"Zero runtime dependencies · Node.js 18+ ESM" },
+      fa: { title:"تحلیل‌گر قواعد ایجنت‌ها و بودجه توکن", lead:"فایل‌های CLAUDE.md، AGENTS.md، GEMINI.md و SKILL.md را هم‌زمان اسکن کنید. تعارض بین قواعد، نشت رمز، فلگ‌های خطرناک و تورم کانتکست را پیش از کامیت بیابید.", labTitle:"بررسی تعارض قواعد و بودجه توکن", scan:"اسکن قواعد", foot:"بدون وابستگی خارجی · Node.js 18+ ESM" }
+    };
+    let lang = "en";
+    function trace(){
+      const a = document.getElementById("claudeIn").value;
+      const b = document.getElementById("agentsIn").value;
+      const tokens = Math.ceil((a.length + b.length) / 4);
+      const findings = [];
+      if (/\buse npm\b/i.test(a) && /\b(?:use pnpm|never use npm)\b/i.test(b)) findings.push("[WARN] CONFLICT_PKG_MANAGER: CLAUDE.md says npm, AGENTS.md says pnpm.");
+      if (/--no-verify|--dangerously-skip-permissions/i.test(a + "\n" + b)) findings.push("[WARN] UNSAFE_DIRECTIVE: found bypass flag (--no-verify / skip-permissions).");
+      document.getElementById("out").textContent = `Estimated budget: ~${tokens} tokens across 2 files\n\n` + (findings.join("\n") || "No conflicts or unsafe directives.");
+    }
+    document.getElementById("scanBtn").onclick = trace;
+    document.getElementById("langBtn").onclick = () => { lang = lang === "en" ? "fa" : "en"; document.documentElement.lang = lang; document.documentElement.dir = lang === "fa" ? "rtl" : "ltr"; document.querySelectorAll("[data-i18n]").forEach(el => { const k = el.dataset.i18n; if(I18N[lang][k]) el.textContent = I18N[lang][k]; }); };
+    document.getElementById("themeBtn").onclick = () => { const d = document.documentElement; d.dataset.theme = d.dataset.theme === "dark" ? "light" : "dark"; };
+    trace();
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "skilltrace",
+  "version": "1.0.0",
+  "description": "Static linter, conflict detector, secret/permission auditor, and token-budget profiler for CLAUDE.md, AGENTS.md, GEMINI.md, Cursor rules, and SKILL.md.",
+  "type": "module",
+  "bin": { "skilltrace": "bin/skilltrace.mjs" },
+  "exports": { ".": { "import": "./src/index.mjs", "types": "./src/index.d.ts" } },
+  "engines": { "node": ">=18" },
+  "scripts": { "test": "node --test test/skilltrace.test.mjs" },
+  "keywords": ["claude-md", "agents-md", "skills", "ai-agents", "linter", "security", "token-budget"],
+  "author": "Mohammadreza Zare",
+  "license": "MIT"
+}

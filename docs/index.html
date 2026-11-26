@@ -32,7 +32,7 @@
     footer{margin-top:36px;color:var(--muted);font-size:.86rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     footer a{color:var(--accent)}
   </style>
-<link rel="stylesheet" href="/assets/studio-mark.css"></head>
+<link rel="stylesheet" href="/assets/studio-mark.css"><link rel="stylesheet" href="/assets/portfolio/embed.css"><script defer src="/assets/portfolio/exhibit.js"></script></head>
 <body>
   <div class="wrap">
     <header>
@@ -89,10 +89,31 @@ Pass --no-verify if in a hurry.</textarea></div>
     trace();
   </script>
 
-<aside class="studio-project-entry" style="--entry-color:#b9e68c">
-  <img src="/assets/thumbs/showcase-skilltrace.webp" alt="" width="160" height="100" loading="lazy" decoding="async">
-  <div><strong>Make repeated guidance fit the budget</strong><small>Review duplicates and keep the required rule</small></div>
-  <a href="/playground/?project=skilltrace&amp;lang=en">Try the case ↗</a>
-</aside>
+<div class="atlas-embedded" data-motif="meter" style="--exhibit-hue:83"><section class="exhibit-studio" id="portfolio-example" data-project="skilltrace" data-motif="meter" data-state="0" aria-labelledby="portfolio-example-title">
+    <div class="exhibit-studio-head"><div><p class="exhibit-kicker"><span class="pf-en" lang="en">Illustrative sample</span><span class="pf-fa" lang="fa">دادهٔ نمونه</span></p><h2 id="portfolio-example-title"><span class="pf-en" lang="en">Change the measured scenario</span><span class="pf-fa" lang="fa">سناریوی اندازه‌گیری را تغییر بده</span></h2></div>
+       <a href="/projects/guide/skilltrace/"><span class="pf-en" lang="en">Interactive introduction</span><span class="pf-fa" lang="fa">معرفی تعاملی</span> <i class="exhibit-arrow" aria-hidden="true"></i></a></div>
+    <div class="exhibit-lab">
+      <div class="stage-picture" aria-hidden="true">
+        <div class="stage-sign"><i></i><i></i><i></i><strong dir="ltr">skilltrace</strong></div>
+
+        <div class="stage-track" dir="ltr"></div>
+        <div class="stage-evidence" dir="ltr"><span dir="auto">58% repeats</span><span dir="auto">27% required</span></div>
+      </div>
+      <div class="stage-work">
+        <p><span class="pf-en" lang="en">An instruction bundle devotes 58% of its sample budget to repeated guidance. A small section defines required project behavior.</span><span class="pf-fa" lang="fa">در نمونه، ۵۸٪ بودجهٔ دستورها صرف متن تکراری می‌شود. بخش کوتاهی رفتار ضروری پروژه را تعریف می‌کند.</span></p>
+        <div class="stage-actions" role="group" aria-label="Example controls / کنترل‌های نمونه">
+          <button type="button" data-stage="1" aria-pressed="false"><span class="pf-en" lang="en">Review duplicates and keep the required rule</span><span class="pf-fa" lang="fa">تکرارها را بررسی کن و قانون ضروری را نگه دار</span><i class="exhibit-arrow" aria-hidden="true"></i></button><button type="button" data-stage="2" aria-pressed="false"><span class="pf-en" lang="en">Delete the longest section blindly</span><span class="pf-fa" lang="fa">بلندترین بخش را بدون بررسی حذف کن</span><i class="exhibit-arrow" aria-hidden="true"></i></button>
+        </div>
+        <output class="stage-result" aria-live="polite"><span class="pf-en" lang="en">Try a response to see its effect.</span><span class="pf-fa" lang="fa">یک کار را انتخاب کن و اثرش را ببین.</span></output>
+        <div class="stage-foot">
+          <button type="button" data-stage="0" aria-pressed="true"><span class="pf-en" lang="en">Reset example</span><span class="pf-fa" lang="fa">بازنشانی نمونه</span></button>
+          <input type="range" min="0" max="2" value="0" step="1" aria-label="Example position / مرحلهٔ نمونه">
+        </div>
+      </div>
+    </div>
+   </section>
+    <p class="exhibit-takeaway"><span class="pf-en" lang="en">Separate repeated text from required behavior before reducing the instruction budget.</span><span class="pf-fa" lang="fa">پیش از کم کردن بودجهٔ دستورها، متن تکراری را از رفتار ضروری پروژه جدا کن.</span></p>
+    <script type="application/json" data-embed-project>{"entries":[{"id":"skilltrace","group":"agents","motif":"meter","color":"#b9e68c","title":["Make repeated guidance fit the budget","حجم دستورهای تکراری را کم کن"],"brief":["An instruction bundle devotes 58% of its sample budget to repeated guidance. A small section defines required project behavior.","در نمونه، ۵۸٪ بودجهٔ دستورها صرف متن تکراری می‌شود. بخش کوتاهی رفتار ضروری پروژه را تعریف می‌کند."],"actions":[["Review duplicates and keep the required rule","تکرارها را بررسی کن و قانون ضروری را نگه دار"],["Delete the longest section blindly","بلندترین بخش را بدون بررسی حذف کن"]],"outcomes":[["A compact bundle preserves the project rule and leaves more space for task context.","بستهٔ کوتاه‌شده قانون ضروری را حفظ می‌کند و برای زمینهٔ وظیفه جا باز می‌شود."],["The shorter bundle may omit behavior the project depends on.","بستهٔ کوتاه‌تر ممکن است رفتاری را حذف کند که پروژه به آن وابسته است."]],"evidence":[["58% repeats","27% required"],["12% repeats","27% required"],["22% repeats","8% required"]],"name":"skilltrace","kicker":["Agent instructions & skills linter","تحلیل‌گر فایل‌های قواعد ایجنت"],"intro":["Static linter, contradiction detector, permission/secret auditor, and token-budget profiler for CLAUDE.md, AGENTS.md, GEMINI.md, Cursor rules, and SKILL.md.","لینتر ایستا، کشف تعارض دستورات، ممیزی رمز و مجوزهای ناامن و پروفایل بودجه توکن برای فایل‌های راهنمای ایجنت."],"hint":["Run `skilltrace scan . --max-tokens 6000 --strict --json` in any repo with agent instructions.","در هر مخزنی که `CLAUDE.md` یا `AGENTS.md` دارد دستور `skilltrace scan . --json` را اجرا کنید."],"site":"/showcase/skilltrace/","source":"https://github.com/mrzroot/skilltrace","layout":"dashboard","hue":83,"image":"/assets/thumbs/showcase-skilltrace.webp"}],"labels":{"map":["Project Atlas","اطلس پروژه‌ها"],"mapIntro":["Four ways to explore the projects. Choose a project to see what it does and open its interactive introduction.","چهار مسیر برای گشتن میان پروژه‌ها. یکی را انتخاب کن تا ببینی چه کار می‌کند و معرفی تعاملی‌اش را باز کنی."],"agents":["AI tooling","ابزارهای هوش مصنوعی"],"language":["Language and data","زبان و داده"],"systems":["Systems","سامانه‌ها"],"showcase":["Design and demos","طراحی و دمو"],"projects":["All projects","همهٔ پروژه‌ها"],"open":["Interactive introduction","معرفی تعاملی"],"test":["Try the example","نمونه را امتحان کن"],"story":["The situation","مسئله"],"reference":["Inspect the project","بررسی پروژه"],"source":["View source on GitHub","کد منبع در گیت‌هاب"],"demo":["Open project website","باز کردن سایت پروژه"],"guide":["Suggested first step","قدم اول پیشنهادی"],"sample":["Illustrative sample","دادهٔ نمونه"],"result":["What happens","نتیجه"],"choose":["Try a response to see its effect.","یک کار را انتخاب کن و اثرش را ببین."],"still":["Initial state","حالت اولیه"],"reset":["Reset example","بازنشانی نمونه"],"more":["Explore another project","یک پروژهٔ دیگر ببین"]}}</script>
+  </div>
 </body>
 </html>

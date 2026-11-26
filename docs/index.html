@@ -32,7 +32,7 @@
     footer{margin-top:36px;color:var(--muted);font-size:.86rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     footer a{color:var(--accent)}
   </style>
-</head>
+<link rel="stylesheet" href="/assets/studio-mark.css"></head>
 <body>
   <div class="wrap">
     <header>
@@ -88,5 +88,11 @@ Pass --no-verify if in a hurry.</textarea></div>
     document.getElementById("themeBtn").onclick = () => { const d = document.documentElement; d.dataset.theme = d.dataset.theme === "dark" ? "light" : "dark"; };
     trace();
   </script>
+
+<aside class="studio-project-entry" style="--entry-color:#b9e68c">
+  <img src="/assets/thumbs/showcase-skilltrace.webp" alt="" width="160" height="100" loading="lazy" decoding="async">
+  <div><strong>Make repeated guidance fit the budget</strong><small>Review duplicates and keep the required rule</small></div>
+  <a href="/playground/?project=skilltrace&amp;lang=en">Try the case ↗</a>
+</aside>
 </body>
 </html>
